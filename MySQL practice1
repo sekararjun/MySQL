@@ -1,0 +1,20 @@
+CREATE DATABASE ECommerce;
+USE ECommerce;
+
+CREATE TABLE Shopping (
+    product_id INT PRIMARY KEY AUTO_INCREMENT,
+    product_name VARCHAR(100) NOT NULL UNIQUE,
+    product_price DECIMAL(10,2) NOT NULL,
+    shipping_cost DECIMAL(10,2) NOT NULL
+);
+desc Shopping;
+
+CREATE TABLE Orders (
+    order_id INT PRIMARY KEY AUTO_INCREMENT,
+    product_id INT NOT NULL,
+    product_name VARCHAR(100) NOT NULL,
+    price DECIMAL(10,2) NOT NULL,
+    CONSTRAINT fk_product FOREIGN KEY (product_id) REFERENCES Shopping(product_id)
+);
+
+describe Orders;
