@@ -1,0 +1,10 @@
+1. Write SQL command to get a substring 'Afternoon' from 'Good Afternoon' and find the length of the final substring. All should be covered in a single SQL command.
+
+SELECT SUBSTRING('Good Afternoon', 6, 9) AS SubStr,
+       LEN(SUBSTRING('Good Afternoon', 6, 9)) AS SubStrLength;
+
+2. Write a SQL command to print future date 7days from today. Also print the day (monday or tuesday like that) of that date.
+
+SELECT GETDATE() AS Today,
+       DATEADD(DAY, 7, GETDATE()) AS FutureDate,
+       DATENAME(WEEKDAY, DATEADD(DAY, 7, GETDATE())) AS DayName;
