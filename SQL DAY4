@@ -1,0 +1,12 @@
+Write a select query to display student details whose mark is greater than 50 and belongs to CSE department.
+
+SELECT *
+FROM Students
+WHERE Marks > 50
+  AND Department = 'CSE';
+
+ Write a select query to display employee details whose salary with in the range of 20,000 to 40,000
+
+SELECT *
+FROM Employees
+WHERE Salary BETWEEN 20000 AND 40000;
