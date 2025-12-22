@@ -1,0 +1,57 @@
+1. Create 2 tables shopping and order. Use Left join to get the details.
+
+CREATE TABLE Shopping (
+    ShopID INT PRIMARY KEY,
+    ItemName VARCHAR(50),
+    Price INT
+);
+
+CREATE TABLE Orders (
+    OrderID INT PRIMARY KEY,
+    ShopID INT,
+    Quantity INT,
+    FOREIGN KEY (ShopID) REFERENCES Shopping(ShopID)
+);
+
+INSERT INTO Shopping (ShopID, ItemName, Price) VALUES
+(1, 'Laptop', 60000),
+(2, 'Mobile', 25000),
+(3, 'Headphones', 3000);
+
+INSERT INTO Orders (OrderID, ShopID, Quantity) VALUES
+(101, 1, 2),
+(102, 2, 1);
+
+SELECT s.ShopID, s.ItemName, s.Price, o.OrderID, o.Quantity
+FROM Shopping s
+LEFT JOIN Orders o
+ON s.ShopID = o.ShopID;
+
+2. Create 2 tables college and schools. Use Full join to get the details.
+
+CREATE TABLE College (
+    CollegeID INT PRIMARY KEY,
+    CollegeName VARCHAR(50),
+    Location VARCHAR(50)
+);
+
+CREATE TABLE Schools (
+    SchoolID INT PRIMARY KEY,
+    SchoolName VARCHAR(50),
+    Location VARCHAR(50)
+);
+
+INSERT INTO College (CollegeID, CollegeName, Location) VALUES
+(1, 'ABC College', 'Chennai'),
+(2, 'XYZ College', 'Salem');
+
+INSERT INTO Schools (SchoolID, SchoolName, Location) VALUES
+(101, 'Sunrise School', 'Chennai'),
+(102, 'Green Valley School', 'Coimbatore');
+
+SELECT c.CollegeID, c.CollegeName, c.Location AS CollegeLocation,
+       s.SchoolID, s.SchoolName, s.Location AS SchoolLocation
+FROM College c
+FULL JOIN Schools s
+ON c.Location = s.Location;
+
