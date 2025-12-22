@@ -1,0 +1,26 @@
+1. Create a College Table in a DB, include columns like Std_RollNo,Std_Name,Std_Subject,Std_Marks. Write SQL Command to display the details of marks based on the Std_Subject.
+
+CREATE TABLE College (
+    Std_RollNo INT PRIMARY KEY,
+    Std_Name VARCHAR(50),
+    Std_Subject VARCHAR(50),
+    Std_Marks INT
+);
+
+INSERT INTO College (Std_RollNo, Std_Name, Std_Subject, Std_Marks) VALUES
+(1, 'Arun', 'CSE', 78),
+(2, 'Priya', 'ECE', 65),
+(3, 'Ravi', 'CSE', 92),
+(4, 'Meena', 'EEE', 55),
+(5, 'Kumar', 'ECE', 88),
+(6, 'Divya', 'EEE', 72);
+
+SELECT Std_RollNo, Std_Name, Std_Subject, Std_Marks
+FROM College
+WHERE Std_Subject = 'CSE';
+
+2. For the above table write query to get the Maximum mark from each subject based on group by Subject.
+
+SELECT Std_Subject, MAX(Std_Marks) AS Max_Mark
+FROM College
+GROUP BY Std_Subject;
