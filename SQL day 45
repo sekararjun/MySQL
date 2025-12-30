@@ -1,0 +1,35 @@
+CREATE TABLE Employees (
+    EmpID INT PRIMARY KEY,
+    EmpName VARCHAR(50),
+    Department VARCHAR(30),
+    Salary INT
+);
+
+INSERT INTO Employees VALUES
+(1, 'Arun', 'HR', 35000),
+(2, 'Bala', 'IT', 55000),
+(3, 'Chitra', 'Finance', 45000),
+(4, 'Deepak', 'IT', 60000),
+(5, 'Esha', 'Finance', 40000);
+
+//SINGLE ROW QUERY
+
+SELECT EmpName, Salary
+FROM Employees
+WHERE Salary > (SELECT Salary FROM Employees WHERE EmpName = 'Chitra');
+
+//MULTI ROW QUERY
+
+SELECT EmpName, Department
+FROM Employees
+WHERE Department IN (SELECT Department FROM Employees WHERE EmpName IN ('Chitra','Esha'));
+
+Key Difference:
+- RANK() → Leaves gaps in ranking if there are ties.
+- DENSE_RANK() → No gaps; ranks are consecutive even with ties.
+
+SELECT EmpName, Salary,
+       RANK() OVER (ORDER BY Salary DESC) AS RankOrder,
+       DENSE_RANK() OVER (ORDER BY Salary DESC) AS DenseRankOrder
+FROM Employees;
+
