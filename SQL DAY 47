@@ -1,0 +1,31 @@
+CREATE TABLE Shopping (
+    ProductID INT PRIMARY KEY,
+    ProductName VARCHAR(50),
+    ProductPrice DECIMAL(10,2),
+    Quantity INT
+);
+
+DELIMITER $$
+
+CREATE PROCEDURE UpdateShoppingData(
+    IN p_ProductID INT,
+    IN p_ProductName VARCHAR(50),
+    IN p_ProductPrice DECIMAL(10,2),
+    IN p_Quantity INT
+)
+BEGIN
+    UPDATE Shopping
+    SET ProductName = p_ProductName,
+        ProductPrice = p_ProductPrice,
+        Quantity = p_Quantity
+    WHERE ProductID = p_ProductID;
+
+    
+    SELECT ProductID, ProductName, ProductPrice, Quantity
+    FROM Shopping
+    WHERE ProductID = p_ProductID;
+END$$
+
+DELIMITER ;
+
+CALL UpdateShoppingData(2, 'Wheat Flour', 45.00, 20);
