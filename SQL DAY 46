@@ -1,0 +1,33 @@
+CREATE TABLE Groceries (
+    ItemID INT PRIMARY KEY,          
+    ItemName VARCHAR(50) NOT NULL,   
+    Price DECIMAL(10,2) NOT NULL,    
+    Month DATE NOT NULL              
+);
+
+INSERT INTO Groceries (ItemID, ItemName, Price, Month) VALUES
+(1, 'Rice',   50.00, '2025-01-01'),
+(2, 'Rice',   55.00, '2025-02-01'),
+(3, 'Rice',   60.00, '2025-03-01'),
+(4, 'Wheat',  40.00, '2025-01-01'),
+(5, 'Wheat',  42.00, '2025-02-01'),
+(6, 'Wheat',  45.00, '2025-03-01'),
+(7, 'Oil',   120.00, '2025-01-01'),
+(8, 'Oil',   115.00, '2025-02-01'),
+(9, 'Oil',   118.00, '2025-03-01'),
+(10,'Sugar',  20.00, '2025-01-01'),
+(11,'Sugar',  22.00, '2025-02-01'),
+(12,'Sugar',  25.00, '2025-03-01');
+
+SELECT ItemName,Month,Price,
+    LAG(Price, 1) OVER (PARTITION BY ItemName ORDER BY Month) AS PrevMonthPrice,
+    LEAD(Price, 1) OVER (PARTITION BY ItemName ORDER BY Month) AS NextMonthPrice
+FROM Groceries;
+
+//MAX AND MIN
+SELECT ItemName,Price,
+    MAX(Price) OVER () AS MaxPrice,
+    MIN(Price) OVER () AS MinPrice
+FROM Groceries;
+
+
