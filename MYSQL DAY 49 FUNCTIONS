@@ -1,0 +1,19 @@
+DELIMITER //
+
+CREATE FUNCTION fn_GetProductName(p_id INT) 
+RETURNS VARCHAR(255)
+DETERMINISTIC
+READS SQL DATA
+BEGIN
+    DECLARE v_name VARCHAR(255);
+
+    SELECT product_name INTO v_name
+    FROM products
+    WHERE product_id = p_id;
+
+    RETURN v_name;
+END //
+
+DELIMITER ;
+
+SELECT fn_GetProductName(101) INTO ProductNAME;
