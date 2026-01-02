@@ -1,0 +1,22 @@
+Difference Between Views and Tables
+TABLE 
+Definition	A physical database object that stores data in rows and columns.	
+Storage	Data is physically stored in the table.
+Modification	You can insert, update, and delete records directly.
+
+VIEW 
+Definition  A virtual table based on the result of a query. It does not store data itself.
+Storage  No physical storage; only stores the SQL query definition.
+Modification  Usually read-only 
+
+
+CREATE VIEW StudentView AS
+SELECT 
+    StudentID,
+    FirstName,
+    LastName,
+    Course,
+    Age
+FROM StudentDetails;
+
+SELECT * FROM StudentView;
