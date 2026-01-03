@@ -1,0 +1,49 @@
+-- Employees table
+CREATE TABLE employees (
+    emp_id INT AUTO_INCREMENT PRIMARY KEY,
+    emp_name VARCHAR(50),
+    salary DECIMAL(10,2)
+);
+
+-- Audit table for AFTER trigger logging
+CREATE TABLE employee_audit (
+    audit_id INT AUTO_INCREMENT PRIMARY KEY,
+    emp_id INT,
+    old_salary DECIMAL(10,2),
+    new_salary DECIMAL(10,2),
+    changed_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+DELIMITER $$
+
+CREATE TRIGGER before_employee_insert
+BEFORE INSERT ON employees
+FOR EACH ROW
+BEGIN
+   -- Prevent negative salary
+   IF NEW.salary < 0 THEN
+      SET NEW.salary = 0;
+   END IF;
+END$$
+
+DELIMITER ;
+
+INSERT INTO employees(emp_name, salary)
+VALUES ('Alice', -5000);
+
+DELIMITER $$
+
+CREATE TRIGGER after_employee_update
+AFTER UPDATE ON employees
+FOR EACH ROW
+BEGIN
+   -- Log salary changes
+   INSERT INTO employee_audit(emp_id, old_salary, new_salary)
+   VALUES (OLD.emp_id, OLD.salary, NEW.salary);
+END$$
+
+DELIMITER ;
+
+UPDATE employees
+SET salary = 8000
+WHERE emp_id = 1;
